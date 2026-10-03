@@ -1,0 +1,23 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": { "major": 3, "minor": 21, "patch": 0 },
+    "configurePresets": [
+        {
+            "name": "default",
+            "displayName": "Default (x64, newest Visual Studio found)",
+            "binaryDir": "${sourceDir}/build"
+        }
+    ],
+    "buildPresets": [
+        { "name": "release", "configurePreset": "default", "configuration": "Release" },
+        { "name": "debug", "configurePreset": "default", "configuration": "Debug" }
+    ],
+    "testPresets": [
+        {
+            "name": "release",
+            "configurePreset": "default",
+            "configuration": "Release",
+            "output": { "outputOnFailure": true }
+        }
+    ]
+}

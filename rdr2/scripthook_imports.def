@@ -1,0 +1,19 @@
+; The functions GarrysRedemption.asi imports from ScriptHookRDR2.dll, as MSVC x64
+; decorated names. The build turns this into an import library when the Script Hook RDR2
+; SDK is not in rdr2/sdk, so the plugin links without it. It produces no DLL: at run time
+; the imports resolve against the real ScriptHookRDR2.dll in the game folder.
+;
+; The names are what the compiler makes of the declarations in src/scripthook.h (the link
+; fails if the two ever disagree). tools/build.ps1 also compares them with the exports of
+; the installed ScriptHookRDR2.dll when GR_RDR2_DIR is set.
+LIBRARY ScriptHookRDR2
+EXPORTS
+    ?scriptWait@@YAXK@Z
+    ?scriptRegister@@YAXPEAUHINSTANCE__@@P6AXXZ@Z
+    ?scriptUnregister@@YAXPEAUHINSTANCE__@@@Z
+    ?nativeInit@@YAX_K@Z
+    ?nativePush64@@YAX_K@Z
+    ?nativeCall@@YAPEA_KXZ
+    ?worldGetAllPeds@@YAHPEAHH@Z
+    ?worldGetAllVehicles@@YAHPEAHH@Z
+    ?worldGetAllObjects@@YAHPEAHH@Z
