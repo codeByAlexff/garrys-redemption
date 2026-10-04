@@ -14,6 +14,29 @@ architecture, [docs/DESIGN.md](docs/DESIGN.md) the decisions and measurements, a
 (Windows 11, an NVIDIA card, RDR2 on Vulkan). It has not yet been installed on another PC.
 See [Known issues](#known-issues).
 
+## Made with Claude Opus 5.5
+
+This project was built with Anthropic's Claude Opus 5.5, the latest model at the time, as a
+test of what current AI can do at modding live game environments. The model wrote and
+debugged the code and tested it in the running games itself: it launched and drove Red Dead
+Redemption 2 and Garry's Mod, read their logs and screenshots, and measured the results.
+
+What it took on:
+
+- **Two games as one**: a shared-memory bridge between two separate game processes, with a
+  versioned binary layout, lock-free single-writer frames (seqlocks) and a floating origin
+  that maps kilometres of RDR2's world onto a small Source map.
+- **Engine internals**: hooking Garry's Mod's Direct3D 9 Present to capture its frame on the
+  GPU and composite it over RDR2; calling RDR2's own script functions (natives) through
+  Script Hook RDR2, every one looked up and recorded with its hash; reading the game's entity
+  pools; raycasting RDR2's world to rebuild its ground, walls and trees as GMod physics.
+- **Reverse engineering by measurement**: undocumented native arguments, shape-test flags and
+  input paths were worked out by experiment in the running game and written down in
+  [docs/NATIVES.md](docs/NATIVES.md) and [docs/DESIGN.md](docs/DESIGN.md).
+
+A person directed the work, played it and reported what felt wrong; [CLAUDE.md](CLAUDE.md) is
+the brief the model worked from.
+
 ## What it does
 
 - **Movement**: GMod's walk, sprint, jump, crouch and noclip (Shift flies fast) on RDR2's
